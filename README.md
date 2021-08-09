@@ -19,7 +19,7 @@ Install SYSLINUX, PXELINUX, and iPXE:
 sudo apt-get install syslinux pxelinux 
 ```
 
-Make `/tfptboot` directory and copy pxelinux and syslinux files into it:
+Make the `/tftpboot` directory and copy pxelinux and syslinux files into it:
 
 ```sh
 sudo mkdir /tftpboot
@@ -30,6 +30,12 @@ sudo cp /usr/lib/syslinux/modules/efi64/ldlinux.e64 /tftpboot
 sudo cp /usr/lib/syslinux/modules/efi64/libutil.c32 /tftpboot
 sudo cp /usr/lib/syslinux/modules/efi64/menu.c32    /tftpboot
 sudo cp /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi    /tftpboot
+```
+
+Make the `/tftpboot/pxelinux.cfg` directory to store boot menus:
+
+```sh
+sudo mkdir /tftpboot/pxelinux.cfg
 ```
 
 Configure TFTPD via `/etc/default/tftpd-hpa`:
