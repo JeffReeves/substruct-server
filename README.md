@@ -19,7 +19,7 @@ Create a directory to store iPXE files and download them from the web:
 sudo apt-get install syslinux pxelinux
 mkdir ~/ipxe
 curl http://boot.ipxe.org/undionly.kpxe --output ~/ipxe/undionly.kpxe
-curl http://boot.ipxe.org/ipxe.efi --output ~/ipxe/ipxe.efi
+curl http://boot.ipxe.org/ipxe.efi      --output ~/ipxe/ipxe.efi
 ```
 
 ### TFTP
