@@ -96,6 +96,12 @@ if exists user-class and option user-class = "iPXE" {
 next-server 192.168.1.3;
 ```
 
+Start and enable the DHCP server:
+```sh
+sudo systemctl enable  isc-dhcp-server
+sudo systemctl restart isc-dhcp-server
+```
+
 ### Nginx
 
 Install the web server:
@@ -142,6 +148,12 @@ server {
 Create the root web directory:
 ```sh
 sudo mkdir -p /var/www/substruct
+```
+
+Start and enable the HTTP server:
+```sh
+sudo systemctl enable  nginx
+sudo systemctl restart nginx
 ```
 
 ## Mount and Copy Operating Systems for Network Booting
