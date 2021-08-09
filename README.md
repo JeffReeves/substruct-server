@@ -38,17 +38,25 @@ TFTP_ADDRESS=":69"
 TFTP_OPTIONS="--secure"
 ```
 
-Make a `/tftpboot` directory and copy pxelinux and syslinux files into it:
+Make a `/tftpboot` directory with full permissions:
 
 ```sh
-sudo mkdir  /tftpboot
-sudo cp     /usr/lib/PXELINUX/pxelinux.0                /tftpboot
-sudo cp     /usr/lib/PXELINUX/lpxelinux.0               /tftpboot
-sudo cp     /usr/lib/syslinux/modules/bios/ldlinux.c32  /tftpboot
-sudo cp     /usr/lib/syslinux/modules/efi64/ldlinux.e64 /tftpboot
-sudo cp     /usr/lib/syslinux/modules/efi64/libutil.c32 /tftpboot
-sudo cp     /usr/lib/syslinux/modules/efi64/menu.c32    /tftpboot
-sudo cp     /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi    /tftpboot
+sudo mkdir      /tftpboot
+sudo chmod 777  /tftpboot
+```
+
+Copy SYSLINUX, PXELINUX, and iPXE files into it:
+
+```sh
+sudo cp /usr/lib/syslinux/modules/bios/ldlinux.c32  /tftpboot
+sudo cp /usr/lib/syslinux/modules/efi64/ldlinux.e64 /tftpboot
+sudo cp /usr/lib/syslinux/modules/efi64/libutil.c32 /tftpboot
+sudo cp /usr/lib/syslinux/modules/efi64/menu.c32    /tftpboot
+sudo cp /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi    /tftpboot
+sudo cp /usr/lib/PXELINUX/pxelinux.0                /tftpboot
+sudo cp /usr/lib/PXELINUX/lpxelinux.0               /tftpboot
+cp      ~/ipxe/ipxe.efi                             /tftpboot
+cp      ~/ipxe/undionly.kpxe                        /tftpboot
 ```
 
 Make the `/tftpboot/pxelinux.cfg` directory to store boot menus:
@@ -163,3 +171,27 @@ sudo systemctl restart nginx
 sudo mkdir /mnt/rhel8-install/
 sudo mount -o loop,ro -t iso9660 ~/Downloads/rhel8/rhel-8.4-x86_64-dvd.iso /mnt/rhel8-install/
 ```
+
+
+
+## Configure Raspberry Pi 4 (RPi4)
+
+The Raspberry Pi 4 uses eeprom to network boot.
+
+To enable network booting:
+
+1. Copy the official Raspberry Pi OS (formerly "Raspbian") to an SD card.
+2. Boot the RPi4 and open a terminal.
+3. Update all packages: `sudo apt-get update && sudo apt-get dist-upgrade -y`.
+4. Install the eeprom updater: `sudo apt-get install rpi-eeprom`.
+5. Update eeprom: `sudo rpi-eeprom-update`.
+6. Reboot: `sudo sync && sudo reboot`.
+6. Set `BOOT_ORDER=0xf421` and `TFTP_PREFIX=2` with: `sudo -E rpi-eeprom-config --edit`.
+
+See the official documentation located here for further details:
+- [Raspberry Pi 4 boot EEPROM](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md)
+- [Network booting](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net.md)
+- [Raspberry Pi 4 Bootloader Configuration](https://www.raspberrypi.org/documentation/computers/raspberry-pi.html#raspberry-pi-4-bootloader-configuration)
+
+To network boot an entire Raspberry Pi OS, see the official tutorial here:
+- [Network boot your Raspberry Pi](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net_tutorial.md)
