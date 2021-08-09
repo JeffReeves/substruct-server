@@ -188,6 +188,8 @@ To enable network booting:
 6. Reboot: `sudo sync && sudo reboot`.
 6. Set `BOOT_ORDER=0xf421` and `TFTP_PREFIX=2` with: `sudo -E rpi-eeprom-config --edit`.
 
+*NOTE: The `TFTP_PREFIX=2` option makes it so that the `/tftpboot` directory uses RPi MAC address values instead of serial numbers.*
+
 See the official documentation located here for further details:
 - [Raspberry Pi 4 boot EEPROM](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md)
 - [Network booting](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net.md)
