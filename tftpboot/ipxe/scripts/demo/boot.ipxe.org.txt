@@ -1,0 +1,5 @@
+#!ipxe
+
+kernel vmlinuz-3.16.0-rc4 bootfile=http://boot.ipxe.org/demo/ fastboot initrd=initrd.img
+initrd initrd.img
+boot

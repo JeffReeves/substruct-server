@@ -1,0 +1,5 @@
+#!ipxe
+echo "Congratulations on loading iPXE!"
+echo "Entering into an iPXE shell ..."
+shell
+#set 209:string pxelinux.cfg/default
