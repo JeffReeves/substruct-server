@@ -28,20 +28,24 @@ echo "UNIXTIME:     ${unixtime}"
 echo ""
 
 # Check if Raspberry Pi
+set manufacturer_rpi Raspberry Pi Foundation
 echo "Checking if this is a Raspberry Pi ..."
-iseq ${manufacturer} "Raspberry Pi Foundation" && goto raspberry_pi || goto ipxe_shell
+iseq ${manufacturer} ${manufacturer_rpi} && goto raspberry_pi || echo 'Not a Raspberry Pi' && goto ipxe_shell
 
 # Raspberry Pi Section
-raspberry_pi:
+:raspberry_pi
+set product_rpi4 Raspberry Pi 4 Model B
 echo "Found a Raspberry Pi"
 echo "Checking if this is a RPi4 ..."
-iseq ${product} "Raspberry Pi 4 Model B" && goto rpi4 ||
+iseq ${product} ${product_rpi4} && goto rpi4 || echo 'Not a Pi 4' && goto ipxe_shell
 
-rpi4:
+# RPi4
+:rpi4
 echo "Yep. It is a Raspberry Pi 4."
 goto ipxe_shell
 
-ipxe_shell:
+# iPXE Shell
+:ipxe_shell
 echo "Entering into an iPXE shell ..."
 shell
 #set 209:string pxelinux.cfg/default
