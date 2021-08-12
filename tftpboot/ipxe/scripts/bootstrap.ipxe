@@ -1,5 +1,47 @@
 #!ipxe
 echo "Congratulations on loading iPXE!"
+echo ""
+
+echo "Fetching system info ..."
+echo "MANUFACTURER: ${manufacturer}"
+echo "PRODUCT:      ${product}"
+echo "SERIAL:       ${serial}"
+echo "UUID:         ${uuid}"
+echo "MAC:          ${mac}"
+echo "IP:"          ${ip}"
+echo "NETMASK:      ${netmask}"
+echo "GATEWAY:      ${gateway}"
+echo "DNS:          ${dns}"
+echo "DOMAIN:       ${domain}"
+echo "HOSTNAME:     ${hostname}"
+echo "FILENAME:     ${filename}"
+echo "NEXT-SERVER:  ${next-server}"
+echo "ROOT-PATH:    ${root-path}"
+echo "SAN-FILENAME: ${san-filename}"
+echo ""
+
+echo "Fetching iPXE info ..."
+echo "VERSION:      ${version}"
+echo "BUILD ARCH:   ${buildarch}"
+echo "PLATFORM:     ${platform}"
+echo "UNIXTIME:     ${unixtime}"
+echo ""
+
+# Check if Raspberry Pi
+echo "Checking if this is a Raspberry Pi ..."
+iseq ${manufacturer} "Raspberry Pi Foundation" && goto raspberry_pi || goto ipxe_shell
+
+# Raspberry Pi Section
+raspberry_pi:
+echo "Found a Raspberry Pi"
+echo "Checking if this is a RPi4 ..."
+iseq ${product} "Raspberry Pi 4 Model B" && goto rpi4 ||
+
+rpi4:
+echo "Yep. It is a Raspberry Pi 4."
+goto ipxe_shell
+
+ipxe_shell:
 echo "Entering into an iPXE shell ..."
 shell
 #set 209:string pxelinux.cfg/default
