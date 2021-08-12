@@ -1,11 +1,5 @@
 #!ipxe
 
-console --x 1024 --y 768
-set ipxe-background http://192.168.1.3/tftpboot/ipxe/wallpapers/network-768.png
-console --picture ${ipxe-background}
-goto start || shell
-
-:start
 echo "Congratulations on loading iPXE!"
 echo ""
 
