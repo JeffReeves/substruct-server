@@ -90,20 +90,31 @@ Edit the `/etc/dhcp/dhcpd.conf` file to include PXE booting options:
 
 ```conf
 # PXE BOOTING
-#option space pxelinux;
-#option pxelinux.magic code 208 = string;
-#option pxelinux.configfile code 209 = text;
-#option pxelinux.pathprefix code 210 = text;
-#option pxelinux.reboottime code 211 = unsigned integer 32;
-#option architecture-type code 93 = unsigned integer 16;
-
-option client-architecture code 93 = unsigned integer 16;
+option client-arch code 93 = unsigned integer 16;
+# if iPXE is loaded, access main bootstrap iPXE script
 if exists user-class and option user-class = "iPXE" {
-    filename "http://192.168.1.3/ipxeroot/bootstrap.ipxe";
-} elsif option client-architecture = 00:00 {
-    filename "undionly.kpxe";
+    filename "http://192.168.1.3/tftpboot/ipxe/scripts/bootstrap.ipxe";
 } else {
-     filename "ipxe.efi";
+
+    if exists client-arch {
+        if option client-arch = 00:00 {      # prevent bootloop on chain loading
+            filename "ipxe/undionly.kpxe";
+        } elsif option client-arch = 00:06 { # i386
+            filename "ipxe/bin-i386-efi/ipxe.efi";
+        } elsif option client-arch = 00:07 { # x86_64
+            filename "ipxe/bin-x86_64-efi/ipxe.efi";
+        } elsif option client-arch = 00:09 { # x86_64
+            filename "ipxe/bin-x86_64-efi/ipxe.efi";
+        } elsif option client-arch = 00:0a { # arm32
+            filename "ipxe/bin-arm32-efi/ipxe.efi";
+        } elsif option client-arch = 00:0b { # arm64 / aarch64
+            filename "ipxe/bin-arm64-efi/ipxe.efi";     #<-- custom compiled iPXE arm64
+            #filename "ipxe/netboot.xyz-rpi4-snp.efi";   #<-- works to load netboot with working iPXE
+            #filename "efi/boot/bootaa64.efi";           #<-- also works, same issues as above
+            #filename  "ipxe/tests/arm64/ipxe.efi";      #<-- custom compiled arm64 iPXE
+            #filename "ipxe/arm64-efi/ipxe.efi";         #<-- boots but fails after iPXE init devices
+        }
+    }
 }
 next-server 192.168.1.3;
 ```
