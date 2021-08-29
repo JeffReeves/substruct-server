@@ -11,7 +11,7 @@ goto start || shell
 echo Congratulations on loading iPXE!
 echo
 
-echo Fetching system info ...
+echo SYS INFO
 echo MANUFACTURER - ${manufacturer}
 echo PRODUCT ------ ${product}
 echo SERIAL ------- ${serial}
@@ -29,11 +29,11 @@ echo ROOT-PATH ---- ${root-path}
 echo SAN-FILENAME - ${san-filename}
 echo
 
-echo Fetching iPXE info ...
-echo VERSION ----- ${version}
-echo BUILD ARCH -- ${buildarch}
-echo PLATFORM ---- ${platform}
-echo UNIXTIME ---- ${unixtime}
+echo iPXE INFO
+echo VERSION ------ ${version}
+echo BUILD ARCH --- ${buildarch}
+echo PLATFORM ----- ${platform}
+echo UNIXTIME ----- ${unixtime}
 echo
 
 # Check if Raspberry Pi
