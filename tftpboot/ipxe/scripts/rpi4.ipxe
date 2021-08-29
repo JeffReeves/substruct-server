@@ -1,14 +1,14 @@
 #!ipxe
 
 console --x 1920 --y 1080
-set ipxe-background http://192.168.1.3/tftpboot/ipxe/wallpapers/network.png
+set ipxe-background http://192.168.1.3/tftpboot/ipxe/wallpapers/rpi.png
 console --picture ${ipxe-background}
 # set foreground text color to black, background color to transparent for regular text
 cpair --foreground 0 --background 9 0
 goto start || shell
 
 :start
-echo Congratulations on loading iPXE!
+echo Raspberry Pi has been detected and loaded
 echo
 
 echo Fetching system info ...
@@ -51,7 +51,7 @@ iseq ${product} ${product_rpi4} && goto rpi4 || echo Not a Pi 4 && goto ipxe_she
 # RPi4
 :rpi4
 echo Yep. It is a Raspberry Pi 4.
-chain http://192.168.1.3/tftpboot/ipxe/scripts/rpi4.ipxe || goto ipxe_shell
+goto ipxe_shell
 
 # iPXE Shell
 :ipxe_shell
