@@ -52,7 +52,7 @@ iseq ${product} ${product_rpi4} && goto rpi4 || echo Not a Pi 4 && goto ipxe_she
 :rpi4
 echo Yep. It is a Raspberry Pi 4.
 echo Loading rpi4.ipxe script in 5 seconds...
-prompt --key q --timeout 5000 Press 'q' to quit && chain http://192.168.1.3/tftpboot/ipxe/scripts/rpi4.ipxe || goto ipxe_shell
+prompt --key q --timeout 5000 Press 'q' to quit && goto ipxe_shell || chain http://192.168.1.3/tftpboot/ipxe/scripts/rpi4.ipxe
 #sleep 10
 #chain http://192.168.1.3/tftpboot/ipxe/scripts/rpi4.ipxe || goto ipxe_shell
 
