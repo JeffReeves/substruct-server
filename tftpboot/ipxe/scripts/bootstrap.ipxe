@@ -6,53 +6,53 @@ console --picture ${ipxe-background}
 goto start || shell
 
 :start
-echo "Congratulations on loading iPXE!"
-echo ""
+echo Congratulations on loading iPXE!
+echo
 
-echo "Fetching system info ..."
-echo "MANUFACTURER: ${manufacturer}"
-echo "PRODUCT:      ${product}"
-echo "SERIAL:       ${serial}"
-echo "UUID:         ${uuid}"
-echo "MAC:          ${mac}"
-echo "IP:"          ${ip}"
-echo "NETMASK:      ${netmask}"
-echo "GATEWAY:      ${gateway}"
-echo "DNS:          ${dns}"
-echo "DOMAIN:       ${domain}"
-echo "HOSTNAME:     ${hostname}"
-echo "FILENAME:     ${filename}"
-echo "NEXT-SERVER:  ${next-server}"
-echo "ROOT-PATH:    ${root-path}"
-echo "SAN-FILENAME: ${san-filename}"
-echo ""
+echo Fetching system info ...
+echo MANUFACTURER: ${manufacturer}
+echo PRODUCT:      ${product}
+echo SERIAL:       ${serial}
+echo UUID:         ${uuid}
+echo MAC:          ${mac}
+echo IP:           ${ip}
+echo NETMASK:      ${netmask}
+echo GATEWAY:      ${gateway}
+echo DNS:          ${dns}
+echo DOMAIN:       ${domain}
+echo HOSTNAME:     ${hostname}
+echo FILENAME:     ${filename}
+echo NEXT-SERVER:  ${next-server}
+echo ROOT-PATH:    ${root-path}
+echo SAN-FILENAME: ${san-filename}
+echo
 
-echo "Fetching iPXE info ..."
-echo "VERSION:      ${version}"
-echo "BUILD ARCH:   ${buildarch}"
-echo "PLATFORM:     ${platform}"
-echo "UNIXTIME:     ${unixtime}"
-echo ""
+echo Fetching iPXE info ...
+echo VERSION:      ${version}
+echo BUILD ARCH:   ${buildarch}
+echo PLATFORM:     ${platform}
+echo UNIXTIME:     ${unixtime}
+echo
 
 # Check if Raspberry Pi
 set manufacturer_rpi Raspberry Pi Foundation
-echo "Checking if this is a Raspberry Pi ..."
-iseq ${manufacturer} ${manufacturer_rpi} && goto raspberry_pi || echo 'Not a Raspberry Pi' && goto ipxe_shell
+echo Checking if this is a Raspberry Pi ...
+iseq ${manufacturer} ${manufacturer_rpi} && goto raspberry_pi || echo Not a Raspberry Pi && goto ipxe_shell
 
 # Raspberry Pi Section
 :raspberry_pi
 set product_rpi4 Raspberry Pi 4 Model B
-echo "Found a Raspberry Pi"
-echo "Checking if this is a RPi4 ..."
-iseq ${product} ${product_rpi4} && goto rpi4 || echo 'Not a Pi 4' && goto ipxe_shell
+echo Found a Raspberry Pi
+echo Checking if this is a RPi4 ...
+iseq ${product} ${product_rpi4} && goto rpi4 || echo Not a Pi 4 && goto ipxe_shell
 
 # RPi4
 :rpi4
-echo "Yep. It is a Raspberry Pi 4."
+echo Yep. It is a Raspberry Pi 4.
 goto ipxe_shell
 
 # iPXE Shell
 :ipxe_shell
-echo "Entering into an iPXE shell ..."
+echo Entering into an iPXE shell ...
 shell
 #set 209:string pxelinux.cfg/default
