@@ -21,6 +21,10 @@ curl http://boot.ipxe.org/undionly.kpxe --output ~/ipxe/undionly.kpxe
 curl http://boot.ipxe.org/ipxe.efi      --output ~/ipxe/ipxe.efi
 ```
 
+Or build iPXE from source for any additional features (such as graphical backgrounds):
+
+- [Official iPXE Build Instructions](https://ipxe.org/appnote/buildtargets)
+
 ### TFTP
 
 Install the TFTP server:
@@ -135,7 +139,7 @@ Place this content inside of the file to define an HTTP server:
 server {
     listen         80;
     listen         [::]:80;
-    server_name    bridges;
+    server_name    substruct;
     server_tokens  off;
     root           /var/www/substruct;
     index          index.html;
@@ -148,8 +152,8 @@ server {
         try_files    $uri $uri/ =404;
     }
 
-    access_log     /var/log/nginx/bridges.log;
-    error_log      /var/log/nginx/bridges.error.log;
+    access_log     /var/log/nginx/substruct.log;
+    error_log      /var/log/nginx/substruct.error.log;
 }
 ```
 
